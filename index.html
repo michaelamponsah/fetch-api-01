@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch API 01</title>
+  </head>
+  <body>
+    <h1>Fetch API Practice</h1>
+    <img
+      src=""
+      alt="image of a sneaker"
+      id="sneaker"
+      width="400"
+      height="400"
+    />
+    <img src="" alt="image of a slide" id="slides" width="400" height="400" />
+    <img src="" alt="image of a slide" id="trousers" width="400" height="400" />
+
+    <script>
+      fetch("./images/sneaker.jpeg")
+        .then((response) => {
+          // console.log(response);
+          return response.blob();
+        })
+        .then((blob) => {
+          // console.log(blob);
+          document.querySelector("#sneaker").src = URL.createObjectURL(blob);
+        })
+        .catch((err) => console.err(err));
+
+      // Using async await
+      const FetchImage = async () => {
+        try {
+          const response = await fetch("./images/slides.jpg");
+          const blob = await response.blob();
+          return blob;
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      FetchImage()
+        .then((response) => {
+          // console.log(response);
+          document.querySelector("#slides").src = URL.createObjectURL(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      // FETCH
+      fetch("./images/trousers.jpeg")
+        .then((response) => {
+          return response.blob();
+        })
+        .then((data) => {
+          // console.log(blob);
+          document.querySelector("#trousers").src = URL.createObjectURL(data);
+        })
+        .catch((err) => console.log(err));
+
+      // ASYNC AWAIT
+      const FetchTrouserImage = async () => {
+        try {
+          const response = await fetch("./images/trousers.jpeg");
+          const data = response.blob();
+          return data;
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      FetchTrouserImage()
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+    </script>
+  </body>
+</html>
